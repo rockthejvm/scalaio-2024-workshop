@@ -14,7 +14,7 @@ val zioLoggingVersion = "2.1.8"
 val zioConfigVersion  = "3.0.7"
 val sttpVersion       = "3.8.8"
 val javaMailVersion   = "1.6.2"
-val stripeVersion     = "22.12.0"
+val stripeVersion     = "28.0.0" // Applicable to Stripe API version 2024-10-28.acacia - change versions as necessary
 
 val commonDependencies = Seq(
   "com.softwaremill.sttp.tapir"   %% "tapir-sttp-client" % tapirVersion,
