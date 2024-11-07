@@ -11,51 +11,17 @@ import sttp.model.MediaType
 import sttp.model.Header
 
 trait CompanyEndpoints extends BaseEndpoint {
+  // POST /api/companies {name, url} -> Company
   val createEndpoint =
     baseEndpoint
-      .tag("companies")
-      .name("create")
-      .description("create a listing for a company")
-      .in("companies")
-      .post
-      .in(jsonBody[CreateCompanyRequest])
-      .out(jsonBody[Company])
 
+  // GET /api/companies -> List[Company]
   val getAllEndpoint =
     baseEndpoint
-      .tag("companies")
-      .name("getAll")
-      .description("get all company listings")
-      .in("companies")
-      .get
-      .out(jsonBody[List[Company]])
 
+  // GET /api/companies/$id -> Option[Company]
   val getByIdEndpoint =
     baseEndpoint
-      .tag("companies")
-      .name("getById")
-      .description("get company by its id (or maybe by slug?)")
-      .in("companies" / path[String]("id"))
-      .get
-      .out(jsonBody[Option[Company]])
 
-  // stripe endpoints
-  val createPremiumEndpoint =
-    baseEndpoint
-      .name("add company (promoted)")
-      .description("Add premium company (paid via Stripe)")
-      .in("paid" / "company")
-      .post
-      .in(jsonBody[CreateCompanyRequest])
-      .out(jsonBody[String]) // this is the Stripe checkout URL
-
-  // webhook - will be called automatically by Stripe
-  val webhookEndpoint =
-    baseEndpoint
-      .name("add company webhook")
-      .description("Confirm the purchase of a promoted post")
-      .in("paid" / "webhook")
-      .post
-      .in(header[String]("Stripe-Signature"))
-      .in(stringBody)
+  // TODO Stripe endpoints
 }
