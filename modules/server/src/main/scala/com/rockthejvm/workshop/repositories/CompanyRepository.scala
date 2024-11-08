@@ -30,6 +30,21 @@ class CompanyRepository(quill: Quill.Postgres[SnakeCase.type]) {
     run(
       query[Company].filter(_.id == lift(id))
     ).map(_.headOption)
+
+  def update(id: Long, transform: Company => Company) = 
+    for {
+      current <- getById(id).someOrFail(new RuntimeException(s"Company with $id doesn't exist, friend!"))
+      newValue <- run(
+        query[Company]
+          .filter(_.id == lift(id))
+          .updateValue(lift(transform(current)))
+          .returning(r => r)
+      )
+    } yield newValue
+
+  def activate(id: Long): Task[Boolean] = 
+    update(id, _.copy(active = true)).map(_ => true)
+    
 }
 
 object CompanyRepository {

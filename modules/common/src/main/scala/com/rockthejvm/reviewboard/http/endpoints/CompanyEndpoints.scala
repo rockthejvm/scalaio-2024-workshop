@@ -35,8 +35,20 @@ trait CompanyEndpoints extends BaseEndpoint {
       .out(jsonBody[Option[Company]])
 
 
+  // Stripe endpoints
+  val sponsoredEndpoint =
+    baseEndpoint
+      .in("companies" / "sponsored")
+      .post
+      .in(jsonBody[CreateCompanyRequest]) 
+      .out(stringBody)  // returns Stripe checkout link
 
-  // TODO Stripe endpoints
+  val webhookEndpoint = 
+    baseEndpoint
+      .in("companies" / "webhook")
+      .in(header[String]("Stripe-Signature")) // signing the payload
+      .post
+      .in(stringBody)
 }
 
 // sbt "project server; run"

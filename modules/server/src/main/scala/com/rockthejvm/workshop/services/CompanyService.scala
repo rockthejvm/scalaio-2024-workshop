@@ -16,8 +16,14 @@ class CompanyService(repo: CompanyRepository) {
   def getById(id: String): Task[Option[Company]] = 
     for {
       numId <- ZIO.attempt(id.toLong) // surface exceptions if id is not a long
-      company <- repo.getById(id.toLong)
+      company <- repo.getById(numId)
     } yield company
+
+  def activate(id: String): Task[Boolean] = 
+    for {
+      numId <- ZIO.attempt(id.toLong) // surface exceptions if id is not a long
+      result <- repo.activate(numId)
+    } yield result
 }
 
 

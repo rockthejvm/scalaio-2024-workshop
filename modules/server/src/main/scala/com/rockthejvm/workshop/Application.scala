@@ -41,6 +41,7 @@ object Application extends ZIOAppDefault {
       CompanyController.layer, // <-- requires CompanyService!
       // services
       CompanyService.layer, // <-- requires CompanyRepository
+      PaymentService.layer,
       // repositories
       CompanyRepository.layer,
       // infra

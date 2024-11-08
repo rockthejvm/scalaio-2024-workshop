@@ -30,8 +30,8 @@ object CompaniesPage {
         div(
           cls := "row jvm-recent-companies-body",
           div(
-            cls := "col-lg-12"
-            // TODO render companies based on the backend call
+            cls := "col-lg-12",
+            div("this is your stuff")
           )
         )
       )
