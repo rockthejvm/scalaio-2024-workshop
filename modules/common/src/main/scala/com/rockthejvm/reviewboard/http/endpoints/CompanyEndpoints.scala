@@ -14,6 +14,11 @@ trait CompanyEndpoints extends BaseEndpoint {
   // POST /api/companies {name, url} -> Company
   val createEndpoint =
     baseEndpoint
+      .in("companies")
+      .post
+      .in(jsonBody[CreateCompanyRequest])
+      .out(jsonBody[Company])
+
 
   // GET /api/companies -> List[Company]
   val getAllEndpoint =
