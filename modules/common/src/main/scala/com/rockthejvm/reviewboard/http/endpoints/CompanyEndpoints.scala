@@ -16,17 +16,27 @@ trait CompanyEndpoints extends BaseEndpoint {
     baseEndpoint
       .in("companies")
       .post
-      .in(jsonBody[CreateCompanyRequest])
+      .in(jsonBody[CreateCompanyRequest]) // arg = CreateCompanyRequest
       .out(jsonBody[Company])
 
 
   // GET /api/companies -> List[Company]
   val getAllEndpoint =
     baseEndpoint
+    .in("companies")
+    .get
+    .out(jsonBody[List[Company]])
 
   // GET /api/companies/$id -> Option[Company]
   val getByIdEndpoint =
     baseEndpoint
+      .in("companies" / path[String]("id"))
+      .get
+      .out(jsonBody[Option[Company]])
+
+
 
   // TODO Stripe endpoints
 }
+
+// sbt "project server; run"
